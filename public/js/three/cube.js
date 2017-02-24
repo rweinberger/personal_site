@@ -106,8 +106,27 @@ function onDocumentMouseUp( event ) {
 
     if ( intersects.length > 0 ) {
       var index = Math.floor( intersects[0].faceIndex / 2 );
-      console.log(index);
-      $('#modal').removeClass('hidden');
+      // console.log(index);
+      if (index>=68 && index <= 71) {
+        //about
+        $('#about').removeClass('hidden');
+        console.log('about')
+      }
+      else if (index>=4 && index <= 7) {
+        //projects
+        $('#projects').removeClass('hidden');
+        console.log('projects')
+      }
+      else if (index>=84 && index <= 87) {
+        //education
+        $('#education').removeClass('hidden');
+        console.log('education')
+      }
+      else if (index>=20 && index <= 23) {
+        //contact
+        $('#contact').removeClass('hidden');
+        console.log('contact')
+      }
     };
 
   }
@@ -118,6 +137,17 @@ function onDocumentMouseUp( event ) {
   document.removeEventListener( 'mouseup', onDocumentMouseUp, false );
   document.removeEventListener( 'mouseout', onDocumentMouseOut, false );
 }
+
+// POPUP STUFF
+
+$(".close").click(function() {
+  $('.modal').addClass('hidden');
+});
+
+// $("#popup").click(function(event) {
+//   event.stopPropagation();
+// });
+
 function onDocumentMouseOut( event ) {
   document.removeEventListener( 'mousemove', onDocumentMouseMove, false );
   document.removeEventListener( 'mouseup', onDocumentMouseUp, false );
