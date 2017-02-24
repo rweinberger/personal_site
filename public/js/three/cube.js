@@ -45,11 +45,11 @@ function init() {
   // Plane
   var geometry = new THREE.PlaneBufferGeometry( 200, 200 );
   geometry.rotateX( - Math.PI / 2 );
-  var material = new THREE.MeshBasicMaterial( { color: 0xe0e0e0, overdraw: 0.5 } );
+  var material = new THREE.MeshBasicMaterial( { color: 0x383737, overdraw: 0.5 } );
   plane = new THREE.Mesh( geometry, material );
   scene.add( plane );
   renderer = new THREE.CanvasRenderer();
-  renderer.setClearColor( 0xf0f0f0 );
+  renderer.setClearColor( 0x6d6d6d );
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize( window.innerWidth, window.innerHeight );
   container.appendChild( renderer.domElement );
