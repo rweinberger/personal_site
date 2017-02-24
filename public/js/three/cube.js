@@ -109,22 +109,22 @@ function onDocumentMouseUp( event ) {
       // console.log(index);
       if (index>=68 && index <= 71) {
         //about
-        $('#about').removeClass('hidden');
+        $('#about').fadeIn();
         console.log('about')
       }
       else if (index>=4 && index <= 7) {
         //projects
-        $('#projects').removeClass('hidden');
+        $('#projects').fadeIn();
         console.log('projects')
       }
       else if (index>=84 && index <= 87) {
         //education
-        $('#education').removeClass('hidden');
+        $('#education').fadeIn();
         console.log('education')
       }
       else if (index>=20 && index <= 23) {
         //contact
-        $('#contact').removeClass('hidden');
+        $('#contact').fadeIn();
         console.log('contact')
       }
     };
@@ -141,7 +141,7 @@ function onDocumentMouseUp( event ) {
 // POPUP STUFF
 
 $(".close").click(function() {
-  $('.modal').addClass('hidden');
+  $('.modal').fadeOut();
 });
 
 // $("#popup").click(function(event) {
