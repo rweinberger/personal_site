@@ -132,6 +132,7 @@ function onDocumentMouseUp( event ) {
   }
   else if(flag === 1){
     //DRAG
+    $('#spin').fadeOut(800);
   };
   document.removeEventListener( 'mousemove', onDocumentMouseMove, false );
   document.removeEventListener( 'mouseup', onDocumentMouseUp, false );
