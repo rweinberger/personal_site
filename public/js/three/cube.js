@@ -106,8 +106,10 @@ function onDocumentMouseUp( event ) {
 
     if ( intersects.length > 0 ) {
       var index = Math.floor( intersects[0].faceIndex / 2 );
-      console.log(index)
-    }
+      console.log(index);
+      $('#modal').removeClass('hidden');
+    };
+
   }
   else if(flag === 1){
     //DRAG
