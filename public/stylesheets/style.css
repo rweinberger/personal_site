@@ -76,9 +76,9 @@ a {
   display: none
 }
 
-/**************************************************************/
-/***********************---MODAL---****************************/
-/**************************************************************/
+/***************************************************************/
+/***********************---MODALS---****************************/
+/***************************************************************/
 
 .modal {
   position: absolute;
@@ -99,9 +99,8 @@ a {
 .popup {
   position: relative;
   margin: auto;
-  background-color: #fff;
-  height: 30%;
-  top: 34%;
+  height: 34%;
+  top: 33%;
   z-index: 2;
   overflow-y: scroll;
   overflow-wrap: break-word;
@@ -125,7 +124,7 @@ a {
   font-size: 14px;
 }
 
-/*****--specific modals--*****/
+/*****--styling specific modals--*****/
 
 .abt, .edu{
   background-color: #7C6C77;
@@ -149,6 +148,7 @@ a {
 }
 
 /*****--contact---*****/
+
 .contactIcon {
   width: 50px;
   padding: 7px;
@@ -163,8 +163,22 @@ a {
   text-align: center;
 }
 
+/*****--about---*****/
+#headshot {
+  width: 100px;
+  display: inline-block;
+  margin-right: 10px;
+  margin-top: 12px;
+  margin-bottom: 7px;
+  border-radius: 10px;
+}
+
+#aboutText {
+  display: inline-block;
+}
+
 @media screen and (max-height: 1000px) {
   .popup {
-    width: 33vh;
+    width: 34vh;
   }
 }
