@@ -8,31 +8,50 @@ body {
   margin: 0px;
   overflow: hidden;
   font-weight: 200;
+  color: #6b717c;
 }
 
 hr {
   border:none;
   height: 1px;
-  background-color: #e4e4e4
+  background-color: #ccc
 }
 
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+  height: 10%;
+}
+::-webkit-scrollbar-thumb {
+  /*border-radius: 4px;*/
+  background-color: #adadad;
+  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+}
+
+a {
+  text-decoration: none;
+}
 /****************************************************************/
 /***********************---GENERAL---****************************/
 /****************************************************************/
 .title {
   font-size: 30px;
-  letter-spacing: 7px;
-  color: #666666;
+  letter-spacing: 3px;
+  /*color: #848c9b;*/
+  font-weight: 600;
 }
 
 #title {
+  font-weight: 600;
   position: absolute;
   font-size: 40px;
   letter-spacing: 7px;
   width: 100%;
   text-align: center;
   top: 12%;
-  color: #cdcccc;
+  color: #7C6C77;
+  text-shadow: 3px 3px #abbc66;
+  /*border: solid 3px #e2aa52;*/
 }
 
 #spin {
@@ -41,7 +60,7 @@ hr {
   width: 100%;
   text-align: center;
   top: 23%;
-  color: #afadad;
+  color: #7C6C77;
 }
 
 #copyright {
@@ -50,7 +69,7 @@ hr {
   width: 100%;
   text-align: center;
   bottom: 10px;
-  color: #cdcccc;
+  color: #d2d9e5;
 }
 
 .hidden{
@@ -68,9 +87,10 @@ hr {
 }
 
 .overlay {
+  pointer-events: none;
   position: absolute;
-  background-color:#000;
-  opacity: 0.5;
+  background-color:#6b717e;
+  opacity: 0;
   width:100%;
   height: 100%;
   z-index: 1;
@@ -79,12 +99,12 @@ hr {
 .popup {
   position: relative;
   margin: auto;
-  background-color:#fff;
-  width:50%;
-  height: 50%;
-  top: 18%;
+  background-color: #fff;
+  height: 30%;
+  top: 34%;
   z-index: 2;
-  overflow: scroll
+  overflow-y: scroll;
+  overflow-wrap: break-word;
 }
 
 .close {
@@ -101,5 +121,45 @@ hr {
 
 .pContent {
   position: relative;
-  padding: 30px;
+  padding: 15px;
+  font-size: 14px;
+}
+
+/*****--specific modals--*****/
+
+.abt, .edu{
+  background-color: #7C6C77;
+  color: #ccc;
+}
+.abt .title, .edu .title {
+  color: #cadb87;
+}
+
+.con, .proj{
+  background-color: #cadb87;
+  color: #787878;
+}
+
+.con .title, .proj .title {
+  color: #7C6C77;
+}
+
+.con hr, .proj hr {
+  background-color: #787878;
+}
+
+/*****--contact---*****/
+.contactIcon {
+  width: 50px;
+}
+
+.contactIcon:hover {
+  opacity: 0.5;
+}
+
+
+@media screen and (max-height: 1000px) {
+  .popup {
+    width: 33vh;
+  }
 }

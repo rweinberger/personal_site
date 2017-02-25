@@ -8,7 +8,8 @@ var mouseX = 0;
 var mouseXOnMouseDown = 0;
 var windowHalfX = window.innerWidth / 2;
 var windowHalfY = window.innerHeight / 2;
-var flag;
+var flag, popup, prevRotation;
+
 init();
 animate();
 function init() {
@@ -45,11 +46,11 @@ function init() {
   // Plane
   var geometry = new THREE.PlaneBufferGeometry( 200, 200 );
   geometry.rotateX( - Math.PI / 2 );
-  var material = new THREE.MeshBasicMaterial( { color: 0x4e4e4e, overdraw: 0.5 } );
+  var material = new THREE.MeshBasicMaterial( { color: 0x9da18d, overdraw: 0.5 } );
   plane = new THREE.Mesh( geometry, material );
   scene.add( plane );
   renderer = new THREE.CanvasRenderer();
-  renderer.setClearColor( 0x959595 );
+  renderer.setClearColor( 0xcfd2c2 );
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize( window.innerWidth, window.innerHeight );
   container.appendChild( renderer.domElement );
@@ -77,19 +78,6 @@ function onDocumentMouseDown( event ) {
   document.addEventListener( 'mouseout', onDocumentMouseOut, false );
   mouseXOnMouseDown = event.clientX - windowHalfX;
   targetRotationOnMouseDown = targetRotation;
-
-      // switch (index) {
-      //    case 0: 
-      //    case 1: 
-      //    case 2: 
-      //    case 3: 
-      //    case 4: 
-      //    case 5: 
-      // }
-    // var particle = new THREE.Sprite( particleMaterial );
-    // particle.position.copy( intersects[ 0 ].point );
-    // particle.scale.x = particle.scale.y = 16;
-    // scene.add( particle );
 }
 function onDocumentMouseMove( event ) {
   flag = 1;
@@ -102,30 +90,35 @@ function onDocumentMouseUp( event ) {
     var raycaster = new THREE.Raycaster();
     var mouse = new THREE.Vector2();
     raycaster.setFromCamera( mouse, camera );
+
     var intersects = raycaster.intersectObjects( [cube] );
 
     if ( intersects.length > 0 ) {
       var index = Math.floor( intersects[0].faceIndex / 2 );
-      // console.log(index);
+      console.log(cube.rotation.y);
       if (index>=68 && index <= 71) {
         //about
+        popup = true;
+        plane.rotation.y = cube.rotation.y = 0;
         $('#about').fadeIn();
-        console.log('about')
       }
       else if (index>=4 && index <= 7) {
         //projects
+        popup = true;
+        plane.rotation.y = cube.rotation.y = -1.58;
         $('#projects').fadeIn();
-        console.log('projects')
       }
       else if (index>=84 && index <= 87) {
         //education
+        popup = true;
+        plane.rotation.y = cube.rotation.y = 3.14;
         $('#education').fadeIn();
-        console.log('education')
       }
       else if (index>=20 && index <= 23) {
         //contact
+        popup = true;
+        plane.rotation.y = cube.rotation.y = 1.56;
         $('#contact').fadeIn();
-        console.log('contact')
       }
     };
 
@@ -142,7 +135,10 @@ function onDocumentMouseUp( event ) {
 // POPUP STUFF
 
 $(".close").click(function() {
+  console.log("prevRotation: "+ prevRotation);
   $('.modal').fadeOut();
+  // plane.rotation.y = cube.rotation.y = 0;
+  popup = false;
 });
 
 // $("#popup").click(function(event) {
@@ -165,17 +161,17 @@ function onDocumentTouchMove( event ) {
   if ( event.touches.length === 1 ) {
     event.preventDefault();
     mouseX = event.touches[ 0 ].pageX - windowHalfX;
-    targetRotation = targetRotationOnMouseDown + ( mouseX - mouseXOnMouseDown ) * 0.05;
+    targetRotation = targetRotationOnMouseDown + ( mouseX - mouseXOnMouseDown ) * 1;
   }
 }
 //
 function animate() {
   requestAnimationFrame( animate );
-  // stats.begin();
   render();
-  // stats.end();
 }
 function render() {
-  plane.rotation.y = cube.rotation.y += ( targetRotation - cube.rotation.y ) * 0.05;
+  if (popup != true) {
+    plane.rotation.y = cube.rotation.y += ( targetRotation - cube.rotation.y ) * 0.15;
+  };
   renderer.render( scene, camera );
 }
