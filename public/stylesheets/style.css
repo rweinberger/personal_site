@@ -49,12 +49,13 @@ a {
   width: 100%;
   text-align: center;
   top: 12%;
-  color: #7C6C77;
+  color: #492144;
   text-shadow: 3px 3px #abbc66;
   /*border: solid 3px #e2aa52;*/
 }
 
 #spin {
+  font-weight: 600;
   position: absolute;
   font-size: 16px;
   width: 100%;
@@ -69,7 +70,7 @@ a {
   width: 100%;
   text-align: center;
   bottom: 10px;
-  color: #d2d9e5;
+  color: #7C6C77;
 }
 
 .hidden{
