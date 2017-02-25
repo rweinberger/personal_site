@@ -142,15 +142,19 @@ function onDocumentMouseUp( event ) {
         popup = true;
         if (angleSet == false) {
           console.log('actual angle: '+cube.rotation.y);
-          M = cube.rotation.y % 6.28 - 3.14;
+          M = cube.rotation.y % 6.28 + 3.14;
           if (M >= 3.14) {
+            console.log('M > 3.14');
             N = 6.28 - M;
             setAngle = cube.rotation.y + N;
             plane.rotation.y = cube.rotation.y = setAngle;
+            console.log('set angle to: '+setAngle);
             angleSet = true
           } else {
+            console.log('M < 3.14');
             setAngle = cube.rotation.y - M;
             plane.rotation.y = cube.rotation.y = setAngle;
+            console.log('set angle to: '+setAngle);
             angleSet = true
           };
         };
@@ -180,7 +184,6 @@ function onDocumentMouseUp( event ) {
 
   }
   else if(flag === 1){
-    //DRAG
     $('#spin').fadeOut(800);
   };
   document.removeEventListener( 'mousemove', onDocumentMouseMove, false );
