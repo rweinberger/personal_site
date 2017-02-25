@@ -9,6 +9,7 @@ var mouseXOnMouseDown = 0;
 var windowHalfX = window.innerWidth / 2;
 var windowHalfY = window.innerHeight / 2;
 var flag, popup, prevRotation;
+var angleSet = false;
 
 init();
 animate();
@@ -95,29 +96,84 @@ function onDocumentMouseUp( event ) {
 
     if ( intersects.length > 0 ) {
       var index = Math.floor( intersects[0].faceIndex / 2 );
-      console.log(cube.rotation.y);
+      // console.log(cube.rotation.y);
       if (index>=68 && index <= 71) {
         //about
         popup = true;
-        plane.rotation.y = cube.rotation.y = 0;
+        // console.log(angleSet);
+        if (angleSet == false) {
+          console.log('actual angle: '+cube.rotation.y);
+          M = cube.rotation.y % 6.28;
+          if (M >= 3.14) {
+            N = 6.28 - M;
+            setAngle = cube.rotation.y + N;
+            plane.rotation.y = cube.rotation.y = setAngle;
+            angleSet = true
+          } else {
+            setAngle = cube.rotation.y - M;
+            plane.rotation.y = cube.rotation.y = setAngle;
+            angleSet = true
+          };
+        };
         $('#about').fadeIn();
       }
       else if (index>=4 && index <= 7) {
         //projects
         popup = true;
-        plane.rotation.y = cube.rotation.y = -1.58;
+        if (angleSet == false) {
+          console.log('actual angle: '+cube.rotation.y);
+          M = cube.rotation.y % 6.28 +1.57;
+          if (M >= 3.14) {
+            N = 6.28 - M;
+            setAngle = cube.rotation.y + N;
+            plane.rotation.y = cube.rotation.y = setAngle;
+            angleSet = true
+          } else {
+            setAngle = cube.rotation.y - M;
+            plane.rotation.y = cube.rotation.y = setAngle;
+            angleSet = true
+          };
+        };
+        // plane.rotation.y = cube.rotation.y = -1.58;
         $('#projects').fadeIn();
       }
       else if (index>=84 && index <= 87) {
         //education
         popup = true;
-        plane.rotation.y = cube.rotation.y = 3.14;
+        if (angleSet == false) {
+          console.log('actual angle: '+cube.rotation.y);
+          M = cube.rotation.y % 6.28 - 3.14;
+          if (M >= 3.14) {
+            N = 6.28 - M;
+            setAngle = cube.rotation.y + N;
+            plane.rotation.y = cube.rotation.y = setAngle;
+            angleSet = true
+          } else {
+            setAngle = cube.rotation.y - M;
+            plane.rotation.y = cube.rotation.y = setAngle;
+            angleSet = true
+          };
+        };
+        // plane.rotation.y = cube.rotation.y = 3.14;
         $('#education').fadeIn();
       }
       else if (index>=20 && index <= 23) {
         //contact
         popup = true;
-        plane.rotation.y = cube.rotation.y = 1.56;
+        if (angleSet == false) {
+          console.log('actual angle: '+cube.rotation.y);
+          M = cube.rotation.y % 6.28 - 1.57;
+          if (M >= 3.14) {
+            N = 6.28 - M;
+            setAngle = cube.rotation.y + N;
+            plane.rotation.y = cube.rotation.y = setAngle;
+            angleSet = true
+          } else {
+            setAngle = cube.rotation.y - M;
+            plane.rotation.y = cube.rotation.y = setAngle;
+            angleSet = true
+          };
+        };
         $('#contact').fadeIn();
       }
     };
@@ -135,10 +191,10 @@ function onDocumentMouseUp( event ) {
 // POPUP STUFF
 
 $(".close").click(function() {
-  console.log("prevRotation: "+ prevRotation);
   $('.modal').fadeOut();
   // plane.rotation.y = cube.rotation.y = 0;
   popup = false;
+  angleSet = false
 });
 
 // $("#popup").click(function(event) {

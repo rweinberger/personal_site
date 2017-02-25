@@ -151,12 +151,17 @@ a {
 /*****--contact---*****/
 .contactIcon {
   width: 50px;
+  padding: 7px;
 }
 
 .contactIcon:hover {
   opacity: 0.5;
 }
 
+#contactLinks {
+  padding-top: 15px;
+  text-align: center;
+}
 
 @media screen and (max-height: 1000px) {
   .popup {
