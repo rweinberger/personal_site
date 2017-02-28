@@ -38,7 +38,7 @@ a {
   font-size: 30px;
   letter-spacing: 3px;
   /*color: #848c9b;*/
-  font-weight: 600;
+  font-weight: 800;
 }
 
 #title {
@@ -46,11 +46,16 @@ a {
   position: absolute;
   font-size: 40px;
   letter-spacing: 7px;
-  width: 100%;
+  width: 530px;
+  line-height: 50pt;
+  /*height: 50px;*/
+  left: 0;
+  right: 0;
+  margin: auto;
   text-align: center;
   top: 12%;
-  color: #7C6C77;
-  text-shadow: 3px 3px #abbc66;
+  color: #fff;
+  background-color: #ff7e38;
   /*border: solid 3px #e2aa52;*/
 }
 
@@ -61,7 +66,7 @@ a {
   width: 100%;
   text-align: center;
   top: 23%;
-  color: #7C6C77;
+  color: #e9ecf2;
 }
 
 #copyright {
@@ -134,27 +139,30 @@ a {
 
 /*****--styling specific modals--*****/
 
-.abt, .edu{
-  background-color: #7C6C77;
-  color: #ccc;
+/*.abt, .edu{
+  background-color: #f2c078;
+  color: #fff;
 }
 .abt .title, .edu .title {
-  color: #cadb87;
+  color: #fff;
+}*/
+
+.con, .proj, .abt, .edu{
+  background-color: #fff;
+  color: #f2c078;
 }
 
-.con, .proj{
-  background-color: #cadb87;
-  color: #787878;
-}
-
-.con .title, .proj .title {
-  color: #7C6C77;
+.con .title, .proj .title, .abt .title, .edu .title{
+  color: #f2c078;
 }
 
 .con hr, .proj hr {
-  background-color: #787878;
+  background-color: #f2c078;
 }
 
+.abt hr, .edu hr {
+  background-color: #fff;
+}
 /*****--contact---*****/
 
 .contactIcon {

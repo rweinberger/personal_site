@@ -50,11 +50,11 @@ function init() {
   // Plane
   var geometry = new THREE.PlaneBufferGeometry( 200, 200 );
   geometry.rotateX( - Math.PI / 2 );
-  var material = new THREE.MeshBasicMaterial( { color: 0x9da18d, overdraw: 0.5 } );
+  var material = new THREE.MeshBasicMaterial( { color: 0x798190, overdraw: 0.5 } );
   plane = new THREE.Mesh( geometry, material );
   scene.add( plane );
   renderer = new THREE.CanvasRenderer();
-  renderer.setClearColor( 0xdfe0dc );
+  renderer.setClearColor( 0xbac1cf );
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize( window.innerWidth, window.innerHeight );
   container.appendChild( renderer.domElement );
@@ -99,11 +99,10 @@ function getNearestAngleP(target, current){
   a1 = 6.28 * rotations + target;
   a2 = 6.28 * (rotations + 1) + target;
   if (Math.abs(a1 - current) < Math.abs(a2 - current)) {
-    final = a1
+    return a1
   } else {
-    final = a2
+    return a2
   }
-  return final
 }
 
 function setRotation(target, delaySpeed, popup){
@@ -136,7 +135,7 @@ function onDocumentMouseUp( event ) {
         //projects
         popup = true;
         if (angleSet == false) {
-          setRotation(4.71, delaySpeed, 'contact');
+          setRotation(4.71, delaySpeed, 'projects');
         };    
       }
       else if (index>=84 && index <= 87) {
