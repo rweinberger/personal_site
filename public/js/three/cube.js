@@ -15,6 +15,9 @@ init();
 animate();
 function init() {
   var container = document.getElementById('container');
+  var split = new Date().toString().split(" ");
+  var timeZoneFormatted = split[split.length - 2] + " " + split[split.length - 1];
+  $('#timezone').append(timeZoneFormatted);
   camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
   camera.position.y = 150;
   camera.position.z = 500;
@@ -91,6 +94,26 @@ function Tween (toAngle, time) {
   new TWEEN.Tween( plane.rotation ).to( { y:  toAngle}, time ).easing( TWEEN.Easing.Quadratic.Out).start();
 }
 
+function getNearestAngleP(target, current){
+  rotations = Math.floor(current/6.28);
+  a1 = 6.28 * rotations + target;
+  a2 = 6.28 * (rotations + 1) + target;
+  if (Math.abs(a1 - current) < Math.abs(a2 - current)) {
+    final = a1
+  } else {
+    final = a2
+  }
+  return final
+}
+
+function setRotation(target, delaySpeed, popup){
+  actual = cube.rotation.y;
+  setAngle = getNearestAngleP(target, actual)
+  Tween(setAngle, delaySpeed);
+  angleSet = true;
+  $('#' + popup).delay(delaySpeed).fadeIn();
+}
+
 function onDocumentMouseUp( event ) {
   if(flag === 0){
     //CLICK
@@ -102,86 +125,32 @@ function onDocumentMouseUp( event ) {
 
     if ( intersects.length > 0 ) {
       var index = Math.floor( intersects[0].faceIndex / 2 );
-      // console.log(cube.rotation.y);
       if (index>=68 && index <= 71) {
         //about
         popup = true;
-        // console.log(angleSet);
         if (angleSet == false) {
-          M = cube.rotation.y % 6.28;
-          if (M >= 3.14) {
-            N = 6.28 - M;
-            setAngle = cube.rotation.y + N;
-            Tween(setAngle, delaySpeed);
-            angleSet = true;
-            $('#about').delay(delaySpeed).fadeIn()
-          } else {
-            setAngle = cube.rotation.y - M;
-            Tween(setAngle, delaySpeed);
-            angleSet = true;
-            $('#about').delay(delaySpeed).fadeIn()
-          };
+          setRotation(0, delaySpeed, 'about');
         };
       }
       else if (index>=4 && index <= 7) {
         //projects
         popup = true;
         if (angleSet == false) {
-          console.log('actual angle: '+cube.rotation.y);
-          M = cube.rotation.y % 6.28 +1.57;
-          if (M >= 3.14) {
-            N = 6.28 - M;
-            setAngle = cube.rotation.y + N;
-            Tween(setAngle, delaySpeed);
-            angleSet = true;
-            $('#projects').delay(delaySpeed).fadeIn();
-          } else {
-            setAngle = cube.rotation.y - M;
-            Tween(setAngle, delaySpeed);
-            angleSet = true;
-            $('#projects').delay(delaySpeed).fadeIn();
-          };
-        };
-        // plane.rotation.y = cube.rotation.y = -1.58;      
+          setRotation(4.71, delaySpeed, 'contact');
+        };    
       }
       else if (index>=84 && index <= 87) {
         //education
         popup = true;
         if (angleSet == false) {
-          M = cube.rotation.y % 6.28 + 3.14;
-          if (M >= 3.14) {
-            N = 6.28 - M;
-            setAngle = cube.rotation.y + N;
-            Tween(setAngle, delaySpeed);
-            angleSet = true;
-            $('#education').delay(delaySpeed).fadeIn();
-          } else {
-            setAngle = cube.rotation.y - M;
-            Tween(setAngle, delaySpeed);
-            angleSet = true;
-            $('#education').delay(delaySpeed).fadeIn();
-          };
+          setRotation(3.14, delaySpeed, 'education');
         };
-        // plane.rotation.y = cube.rotation.y = 3.14;
-        // $('#education').delay(delaySpeed).fadeIn();
       }
       else if (index>=20 && index <= 23) {
         //contact
         popup = true;
         if (angleSet == false) {
-          M = cube.rotation.y % 6.28 - 1.57;
-          if (M >= 3.14) {
-            N = 6.28 - M;
-            setAngle = cube.rotation.y + N;
-            Tween(setAngle, delaySpeed);
-            angleSet = true;
-            $('#contact').delay(delaySpeed).fadeIn();
-          } else {
-            setAngle = cube.rotation.y - M;
-            Tween(setAngle, delaySpeed);
-            angleSet = true;
-            $('#contact').delay(delaySpeed).fadeIn();
-          };
+          setRotation(1.57, delaySpeed, 'contact');
         };
       }
     };
@@ -242,7 +211,13 @@ function animate() {
 function render() {
   TWEEN.update();
   if (popup != true) {
-    plane.rotation.y = cube.rotation.y += ( targetRotation - cube.rotation.y ) * 0.15;
+    if (screen.width <= 800) {
+      console.log('thing');
+      plane.rotation.y = cube.rotation.y += ( targetRotation - cube.rotation.y ) * 1;
+    } else {
+      // console.log("second thing");
+      plane.rotation.y = cube.rotation.y += ( targetRotation - cube.rotation.y ) * 0.15;
+    }
   };
   renderer.render( scene, camera );
 }
