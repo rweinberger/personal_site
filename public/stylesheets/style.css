@@ -9,6 +9,9 @@ body {
   overflow: hidden;
   font-weight: 200;
   color: #6b717c;
+  background-image: url('/images/morning.png');
+  background-position: center top;
+  background-size: 100% auto;
 }
 
 hr {
@@ -54,8 +57,8 @@ a {
   margin: auto;
   text-align: center;
   top: 12%;
-  color: #fff;
-  background-color: #ff7e38;
+  color: #000;
+  background-color: #fff;
   /*border: solid 3px #e2aa52;*/
 }
 
@@ -65,8 +68,8 @@ a {
   font-size: 16px;
   width: 100%;
   text-align: center;
-  top: 23%;
-  color: #e9ecf2;
+  top: 24%;
+  color: #fff;
 }
 
 #copyright {
@@ -75,14 +78,14 @@ a {
   width: 100%;
   text-align: center;
   bottom: 10px;
-  color: #7C6C77;
+  color: #000;
 }
 
 #timezone {
   position: absolute;
   font-size: 10px;
   padding: 10px;
-  color: #7C6C77;
+  color: #000;
 }
 
 .hidden{
@@ -149,19 +152,19 @@ a {
 
 .con, .proj, .abt, .edu{
   background-color: #fff;
-  color: #f2c078;
+  color: #000;
 }
 
 .con .title, .proj .title, .abt .title, .edu .title{
-  color: #f2c078;
+  color: #ff7e38;
 }
 
 .con hr, .proj hr {
-  background-color: #f2c078;
+  background-color: #ff7e38;
 }
 
 .abt hr, .edu hr {
-  background-color: #fff;
+  background-color: #ff7e38;
 }
 /*****--contact---*****/
 

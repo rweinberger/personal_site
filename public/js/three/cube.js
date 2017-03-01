@@ -9,6 +9,7 @@ var mouseXOnMouseDown = 0;
 var windowHalfX = window.innerWidth / 2;
 var windowHalfY = window.innerHeight / 2;
 var flag, popup, prevRotation;
+var time;
 var angleSet = false;
 
 init();
@@ -18,6 +19,18 @@ function init() {
   var split = new Date().toString().split(" ");
   var timeZoneFormatted = split[split.length - 2] + " " + split[split.length - 1];
   $('#timezone').append(timeZoneFormatted);
+  var hour = new Date().getHours();
+  if (hour >= 5 && hour < 12) {
+    $('#timezone').append("<br> morning");
+  } else if (hour >= 12 && hour < 17){
+    $('#timezone').append("<br> afternoon");
+  } else if (hour >= 17 && hour < 19) {
+    $('#timezone').append("<br> early evening");
+  } else if (hour >= 19 && hour < 22) {
+    $('#timezone').append("<br> evening");
+  } else if (hour >= 22 && hour < 5) {
+    $('#timezone').append("<br> night");
+  };
   camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
   camera.position.y = 150;
   camera.position.z = 500;
@@ -25,11 +38,6 @@ function init() {
   // Cube
   var tesselation = 4;
   geometry = new THREE.BoxGeometry( 200, 200, 200, tesselation, tesselation, tesselation );
-  // for ( var i = 0; i < geometry.faces.length; i += 2 ) {
-  //   var hex = Math.random() * 0xffffff;
-  //   geometry.faces[ i ].color.setHex( hex );
-  //   geometry.faces[ i + 1 ].color.setHex( hex );
-  // }
   var texture1 = new THREE.TextureLoader().load( "../../images/1.png" );
   var texture2 = new THREE.TextureLoader().load( "../../images/2.png" );
   var texture3 = new THREE.TextureLoader().load( "../../images/3.png" );
@@ -53,8 +61,9 @@ function init() {
   var material = new THREE.MeshBasicMaterial( { color: 0x798190, overdraw: 0.5 } );
   plane = new THREE.Mesh( geometry, material );
   scene.add( plane );
-  renderer = new THREE.CanvasRenderer();
-  renderer.setClearColor( 0xbac1cf );
+  // renderer = new THREE.CanvasRenderer();
+  renderer = new THREE.WebGLRenderer( { alpha: true } );
+  renderer.setClearColor( 0xfff, 0 );
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize( window.innerWidth, window.innerHeight );
   container.appendChild( renderer.domElement );
