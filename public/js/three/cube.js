@@ -35,6 +35,16 @@ function init() {
   camera.position.y = 150;
   camera.position.z = 500;
   scene = new THREE.Scene();
+  // Particles
+  var spriteMaterial = new THREE.SpriteMaterial( {
+    map: new THREE.CanvasTexture( generateSprite() ),
+    blending: THREE.AdditiveBlending
+  } );
+  for ( var i = 0; i < 1000; i++ ) {
+    particle = new THREE.Sprite( spriteMaterial );
+    initParticle( particle, i * 250 );
+    scene.add( particle );
+  }
   // Cube
   var tesselation = 4;
   geometry = new THREE.BoxGeometry( 200, 200, 200, tesselation, tesselation, tesselation );
@@ -58,12 +68,13 @@ function init() {
   // Plane
   var geometry = new THREE.PlaneBufferGeometry( 200, 200 );
   geometry.rotateX( - Math.PI / 2 );
-  var material = new THREE.MeshBasicMaterial( { color: 0x798190, overdraw: 0.5 } );
+  var material = new THREE.MeshBasicMaterial( { color: 0x0d0e1a, overdraw: 0.5 } );
   plane = new THREE.Mesh( geometry, material );
   scene.add( plane );
   // renderer = new THREE.CanvasRenderer();
   renderer = new THREE.WebGLRenderer( { alpha: true } );
-  renderer.setClearColor( 0xfff, 0 );
+  renderer.setClearColor( 0x27284b );
+  // renderer.setClearColor( 0x000 );
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize( window.innerWidth, window.innerHeight );
   container.appendChild( renderer.domElement );
@@ -82,6 +93,42 @@ function onWindowResize() {
   camera.updateProjectionMatrix();
   renderer.setSize( window.innerWidth, window.innerHeight );
 }
+// Particles
+
+function generateSprite() {
+  var canvas = document.createElement( 'canvas' );
+  canvas.width = 16;
+  canvas.height = 16;
+  var context = canvas.getContext( '2d' );
+  var gradient = context.createRadialGradient( canvas.width / 2, canvas.height / 2, 0, canvas.width / 2, canvas.height / 2, canvas.width / 2 );
+  gradient.addColorStop( 0, 'rgba(255,255,255,1)' );
+  gradient.addColorStop( 0.2, 'rgba(222,195,50,1)' );
+  gradient.addColorStop( 0, 'rgba(222,195,50,1)' );
+  gradient.addColorStop( 1, 'rgba(0,0,0,0)' );
+  context.fillStyle = gradient;
+  context.fillRect( 0, 0, canvas.width, canvas.height );
+  return canvas;
+}
+function initParticle( particle, delay ) {
+  var particle = this instanceof THREE.Sprite ? this : particle;
+  var delay = delay !== undefined ? delay : 0;
+  particle.position.set( 0, 100, 0 );
+  particle.scale.x = particle.scale.y = Math.random() * 32 + 16;
+  new TWEEN.Tween( particle )
+    .delay( delay )
+    .to( {}, 10000 )
+    .onComplete( initParticle )
+    .start();
+  new TWEEN.Tween( particle.position )
+    .delay( delay )
+    .to( { x: Math.random() * 4000 - 2000, y: Math.random() * 1000 - 500, z: Math.random() * 4000 - 2000 }, 10000 )
+    .start();
+  new TWEEN.Tween( particle.scale )
+    .delay( delay )
+    .to( { x: 0.01, y: 0.01 }, 10000 )
+    .start();
+}
+
 //
 function onDocumentMouseDown( event ) {
   flag = 0;
