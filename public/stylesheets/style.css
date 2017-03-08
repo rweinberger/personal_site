@@ -1,10 +1,15 @@
+@font-face {
+    font-family: custom;
+    src: url(../fonts/OstrichSans-Medium.otf);
+}
+
 html, body {
   width: 100%;
   height: 100%;
 }
 
 body {
-  font-family: Helvetica;
+  font-family: custom;
   margin: 0px;
   overflow: hidden;
   font-weight: 200;

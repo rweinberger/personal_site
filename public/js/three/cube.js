@@ -20,7 +20,10 @@ function init() {
   var timeZoneFormatted = split[split.length - 2] + " " + split[split.length - 1];
   $('#timezone').append(timeZoneFormatted);
   var hour = new Date().getHours();
-  if (hour >= 5 && hour < 12) {
+  console.log(hour);
+  if (hour < 5) {
+    $('#timezone').append("<br> night");
+  } else if (hour >= 5 && hour < 12) {
     $('#timezone').append("<br> morning");
   } else if (hour >= 12 && hour < 17){
     $('#timezone').append("<br> afternoon");
@@ -28,7 +31,7 @@ function init() {
     $('#timezone').append("<br> early evening");
   } else if (hour >= 19 && hour < 22) {
     $('#timezone').append("<br> evening");
-  } else if (hour >= 22 && hour < 5) {
+  } else if (hour >= 22) {
     $('#timezone').append("<br> night");
   };
   camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
@@ -70,7 +73,7 @@ function init() {
   geometry.rotateX( - Math.PI / 2 );
   var material = new THREE.MeshBasicMaterial( { color: 0x0d0e1a, overdraw: 0.5 } );
   plane = new THREE.Mesh( geometry, material );
-  scene.add( plane );
+  // scene.add( plane );
   // renderer = new THREE.CanvasRenderer();
   renderer = new THREE.WebGLRenderer( { alpha: true } );
   renderer.setClearColor( 0x27284b );
@@ -97,8 +100,8 @@ function onWindowResize() {
 
 function generateSprite() {
   var canvas = document.createElement( 'canvas' );
-  canvas.width = 12;
-  canvas.height = 12;
+  canvas.width = 16;
+  canvas.height = 16;
   var context = canvas.getContext( '2d' );
   var gradient = context.createRadialGradient( canvas.width / 2, canvas.height / 2, 0, canvas.width / 2, canvas.height / 2, canvas.width / 2 );
   gradient.addColorStop( 0, 'rgba(255,255,255,1)' );
@@ -112,7 +115,7 @@ function generateSprite() {
 function initParticle( particle, delay ) {
   var particle = this instanceof THREE.Sprite ? this : particle;
   var delay = delay !== undefined ? delay : 0;
-  particle.position.set( 0, 100, 0 );
+  particle.position.set( 0, 170, 0 );
   particle.scale.x = particle.scale.y = Math.random() * 24;
   new TWEEN.Tween( particle )
     .delay( delay )
