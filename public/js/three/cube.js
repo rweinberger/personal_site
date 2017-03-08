@@ -42,7 +42,7 @@ function init() {
   } );
   for ( var i = 0; i < 1000; i++ ) {
     particle = new THREE.Sprite( spriteMaterial );
-    initParticle( particle, i * 250 );
+    initParticle( particle, i * 200 );
     scene.add( particle );
   }
   // Cube
@@ -97,8 +97,8 @@ function onWindowResize() {
 
 function generateSprite() {
   var canvas = document.createElement( 'canvas' );
-  canvas.width = 16;
-  canvas.height = 16;
+  canvas.width = 12;
+  canvas.height = 12;
   var context = canvas.getContext( '2d' );
   var gradient = context.createRadialGradient( canvas.width / 2, canvas.height / 2, 0, canvas.width / 2, canvas.height / 2, canvas.width / 2 );
   gradient.addColorStop( 0, 'rgba(255,255,255,1)' );
@@ -113,19 +113,19 @@ function initParticle( particle, delay ) {
   var particle = this instanceof THREE.Sprite ? this : particle;
   var delay = delay !== undefined ? delay : 0;
   particle.position.set( 0, 100, 0 );
-  particle.scale.x = particle.scale.y = Math.random() * 32 + 16;
+  particle.scale.x = particle.scale.y = Math.random() * 24;
   new TWEEN.Tween( particle )
     .delay( delay )
-    .to( {}, 10000 )
+    .to( {}, 50000 )
     .onComplete( initParticle )
     .start();
   new TWEEN.Tween( particle.position )
     .delay( delay )
-    .to( { x: Math.random() * 4000 - 2000, y: Math.random() * 1000 - 500, z: Math.random() * 4000 - 2000 }, 10000 )
+    .to( { x: Math.random() * 4000 - 2000, y: Math.random() * 2000 - 1000, z: Math.random() * 4000 - 2000 }, 50000 )
     .start();
   new TWEEN.Tween( particle.scale )
     .delay( delay )
-    .to( { x: 0.01, y: 0.01 }, 10000 )
+    .to( { x: 0.01, y: 0.01 }, 50000 )
     .start();
 }
 
