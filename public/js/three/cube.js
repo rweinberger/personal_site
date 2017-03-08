@@ -153,7 +153,7 @@ function Tween (toAngle, time) {
   new TWEEN.Tween( plane.rotation ).to( { y:  toAngle}, time ).easing( TWEEN.Easing.Quadratic.Out).start();
 }
 
-function getNearestAngleP(target, current){
+function nearestAngle(target, current){
   rotations = Math.floor(current/6.28);
   a1 = 6.28 * rotations + target;
   a2 = 6.28 * (rotations + 1) + target;
@@ -166,10 +166,18 @@ function getNearestAngleP(target, current){
 
 function setRotation(target, delaySpeed, popup){
   actual = cube.rotation.y;
-  setAngle = getNearestAngleP(target, actual)
+  setAngle = nearestAngle(target, actual)
   Tween(setAngle, delaySpeed);
   angleSet = true;
+  console.log(popup);
   $('#' + popup).delay(delaySpeed).fadeIn();
+  $('.' + popup).delay(2*delaySpeed).animate({
+    width: '50vh',
+    height: '50vh',
+    top: '25%'
+  });
+  $('.pContent').delay(4*delaySpeed).fadeIn();
+  $('.close').delay(4*delaySpeed).fadeIn();
 }
 
 function onDocumentMouseUp( event ) {
@@ -187,28 +195,28 @@ function onDocumentMouseUp( event ) {
         //about
         popup = true;
         if (angleSet == false) {
-          setRotation(0, delaySpeed, 'about');
+          setRotation(0, delaySpeed, 'abt');
         };
       }
       else if (index>=4 && index <= 7) {
         //projects
         popup = true;
         if (angleSet == false) {
-          setRotation(4.71, delaySpeed, 'projects');
+          setRotation(4.71, delaySpeed, 'proj');
         };    
       }
       else if (index>=84 && index <= 87) {
         //education
         popup = true;
         if (angleSet == false) {
-          setRotation(3.14, delaySpeed, 'education');
+          setRotation(3.14, delaySpeed, 'edu');
         };
       }
       else if (index>=20 && index <= 23) {
         //contact
         popup = true;
         if (angleSet == false) {
-          setRotation(1.57, delaySpeed, 'contact');
+          setRotation(1.57, delaySpeed, 'con');
         };
       }
     };
@@ -225,15 +233,23 @@ function onDocumentMouseUp( event ) {
 // POPUP STUFF
 
 $(".close").click(function() {
+  var delaySpeed = 200;
   // var id = $(this).attr('id');
   // var type = id.substring(5);
   // console.log(type);
   // console.log('closing');
   // $('#'+type).hide();
-  $('.modal').fadeOut();
+  $('.pContent').fadeOut(200);
+  $('.close').fadeOut(200);
+  $('.modal').delay(2*delaySpeed).fadeOut();
+  $('.popup').delay(delaySpeed).animate({
+    width: '34vh',
+    height: '34%',
+    top: '33%'
+  });
   setTimeout(function(){ 
     popup = false; 
-  }, 200);
+  }, 800);
   // popup = false;
   angleSet = false
 });
