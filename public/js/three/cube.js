@@ -73,16 +73,14 @@ function init() {
   geometry.rotateX( - Math.PI / 2 );
   var material = new THREE.MeshBasicMaterial( { color: 0x0d0e1a, overdraw: 0.5 } );
   plane = new THREE.Mesh( geometry, material );
+  // IF SHADOW....
   // scene.add( plane );
   // renderer = new THREE.CanvasRenderer();
   renderer = new THREE.WebGLRenderer( { alpha: true } );
   renderer.setClearColor( 0x27284b );
-  // renderer.setClearColor( 0x000 );
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize( window.innerWidth, window.innerHeight );
   container.appendChild( renderer.domElement );
-  // stats = new Stats();
-  // container.appendChild( stats.dom );
   document.addEventListener( 'mousedown', onDocumentMouseDown, false );
   document.addEventListener( 'touchstart', onDocumentTouchStart, false );
   document.addEventListener( 'touchmove', onDocumentTouchMove, false );
@@ -169,15 +167,20 @@ function setRotation(target, delaySpeed, popup){
   setAngle = nearestAngle(target, actual)
   Tween(setAngle, delaySpeed);
   angleSet = true;
-  console.log(popup);
-  $('#' + popup).delay(delaySpeed).fadeIn();
-  $('.' + popup).delay(2*delaySpeed).animate({
-    width: '50vh',
-    height: '50vh',
-    top: '25%'
-  });
-  $('.pContent').delay(4*delaySpeed).fadeIn();
-  $('.close').delay(4*delaySpeed).fadeIn();
+  if (popup != 'con') {
+    $('#' + popup).delay(delaySpeed).fadeIn();
+    $('.' + popup).delay(2*delaySpeed).animate({
+      width: '50vh',
+      height: '50vh',
+      top: '25%'
+    });
+    $('.pContent').delay(4*delaySpeed).fadeIn();
+    $('.close').delay(4*delaySpeed).fadeIn();
+  } else {
+    $('#' + popup).delay(delaySpeed).fadeIn();
+    $('.pContent').delay(delaySpeed).fadeIn();
+    $('.close').delay(delaySpeed).fadeIn();
+  }
 }
 
 function onDocumentMouseUp( event ) {
@@ -234,11 +237,6 @@ function onDocumentMouseUp( event ) {
 
 $(".close").click(function() {
   var delaySpeed = 200;
-  // var id = $(this).attr('id');
-  // var type = id.substring(5);
-  // console.log(type);
-  // console.log('closing');
-  // $('#'+type).hide();
   $('.pContent').fadeOut(200);
   $('.close').fadeOut(200);
   $('.modal').delay(2*delaySpeed).fadeOut();
@@ -250,13 +248,8 @@ $(".close").click(function() {
   setTimeout(function(){ 
     popup = false; 
   }, 800);
-  // popup = false;
   angleSet = false
 });
-
-// $("#popup").click(function(event) {
-//   event.stopPropagation();
-// });
 
 function onDocumentMouseOut( event ) {
   document.removeEventListener( 'mousemove', onDocumentMouseMove, false );
@@ -286,10 +279,8 @@ function render() {
   TWEEN.update();
   if (popup != true) {
     if (screen.width <= 800) {
-      console.log('thing');
       plane.rotation.y = cube.rotation.y += ( targetRotation - cube.rotation.y ) * 1;
     } else {
-      // console.log("second thing");
       plane.rotation.y = cube.rotation.y += ( targetRotation - cube.rotation.y ) * 0.15;
     }
   };
