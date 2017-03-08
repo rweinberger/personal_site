@@ -170,9 +170,9 @@ function setRotation(target, delaySpeed, popup){
   if (popup != 'con') {
     $('#' + popup).delay(delaySpeed).fadeIn();
     $('.' + popup).delay(2*delaySpeed).animate({
-      width: '50vh',
-      height: '50vh',
-      top: '25%'
+      width: '52vh',
+      height: '52vh',
+      top: '24%'
     });
     $('.pContent').delay(4*delaySpeed).fadeIn();
     $('.close').delay(4*delaySpeed).fadeIn();
