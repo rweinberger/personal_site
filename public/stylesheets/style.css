@@ -16,21 +16,16 @@ html, body {
 
 body {
   font-family: 'body';
-  /*font-family: Helvetica;*/
-  /*font-weight: 200;*/
-  /*letter-spacing: 2px;*/
   margin: 0px;
   overflow: hidden;
-  color: #6b717c;
-  /*background-image: url('/images/morning.png');*/
-/*  background-position: center top;
-  background-size: 100% auto;*/
+  /**CHANGE THIS FOR SMALL FONT COLOR**/
+  color: #fff;
 }
 
 hr {
   border:none;
   height: 1px;
-  background-color: #9d9fd0
+  background-color: #b9b9b9;
 }
 
 ::-webkit-scrollbar {
@@ -54,7 +49,7 @@ a {
   font-family: "title";
   font-size: 30px;
   letter-spacing: 3px;
-  color: #71729d;
+  color: #7a7a7a;
 }
 
 #title {
@@ -76,8 +71,8 @@ a {
   font-size: 16px;
   width: 100%;
   text-align: center;
-  top: 24%;
-  color: #71729d;
+  top: 24.5%;
+  color: #fff;
 }
 
 #copyright {
@@ -86,14 +81,14 @@ a {
   width: 100%;
   text-align: center;
   bottom: 10px;
-  color: #71729d;
+  color: #fff;
 }
 
 #timezone {
   position: absolute;
   font-size: 10px;
   padding: 10px;
-  color: #71729d;
+  color: #fff;
 }
 
 .hidden{
@@ -123,8 +118,8 @@ a {
 .popup {
   position: relative;
   margin: auto;
-  height: 34%;
-  top: 33%;
+  height: 36%;
+  top: 32%;
   z-index: 2;
   overflow-y: scroll;
   overflow-wrap: break-word;
@@ -134,8 +129,8 @@ a {
 
 .close {
   position: absolute;
-  top: 10px;
-  right: 13px;
+  top: 15px;
+  right: 17px;
   z-index: 3;
   display: none;
 }
@@ -189,12 +184,12 @@ a {
 
 /*****--about---*****/
 #headshot {
-  width: 100px;
+  width: 175px;
   display: inline-block;
   margin-right: 10px;
   margin-top: 12px;
   margin-bottom: 7px;
-  border-radius: 10px;
+  /*border-radius: 10px;*/
 }
 
 #aboutText {

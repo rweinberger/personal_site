@@ -11,42 +11,51 @@ var windowHalfY = window.innerHeight / 2;
 var flag, popup, prevRotation;
 var time;
 var angleSet = false;
-
+var useParticles = false;
+var showShadow = true;
+var showTimeZone = false;
+var bgColor = 0x9b9b9b;
+var shadowColor = 0x5d5d5d;
 init();
 animate();
+
 function init() {
   var container = document.getElementById('container');
   var split = new Date().toString().split(" ");
-  var timeZoneFormatted = split[split.length - 2] + " " + split[split.length - 1];
-  $('#timezone').append(timeZoneFormatted);
-  var hour = new Date().getHours();
-  console.log(hour);
-  if (hour < 5) {
-    $('#timezone').append("<br> night");
-  } else if (hour >= 5 && hour < 12) {
-    $('#timezone').append("<br> morning");
-  } else if (hour >= 12 && hour < 17){
-    $('#timezone').append("<br> afternoon");
-  } else if (hour >= 17 && hour < 19) {
-    $('#timezone').append("<br> early evening");
-  } else if (hour >= 19 && hour < 22) {
-    $('#timezone').append("<br> evening");
-  } else if (hour >= 22) {
-    $('#timezone').append("<br> night");
-  };
+  if (showTimeZone) {
+    var timeZoneFormatted = split[split.length - 2] + " " + split[split.length - 1];
+    $('#timezone').append(timeZoneFormatted);
+    var hour = new Date().getHours();
+    console.log(hour);
+    if (hour < 5) {
+      $('#timezone').append("<br> night");
+    } else if (hour >= 5 && hour < 12) {
+      $('#timezone').append("<br> morning");
+    } else if (hour >= 12 && hour < 17){
+      $('#timezone').append("<br> afternoon");
+    } else if (hour >= 17 && hour < 19) {
+      $('#timezone').append("<br> early evening");
+    } else if (hour >= 19 && hour < 22) {
+      $('#timezone').append("<br> evening");
+    } else if (hour >= 22) {
+      $('#timezone').append("<br> night");
+    };
+  }
   camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
   camera.position.y = 150;
   camera.position.z = 500;
   scene = new THREE.Scene();
   // Particles
-  var spriteMaterial = new THREE.SpriteMaterial( {
-    map: new THREE.CanvasTexture( generateSprite() ),
-    blending: THREE.AdditiveBlending
-  } );
-  for ( var i = 0; i < 1000; i++ ) {
-    particle = new THREE.Sprite( spriteMaterial );
-    initParticle( particle, i * 200 );
-    scene.add( particle );
+  if (useParticles) {
+    var spriteMaterial = new THREE.SpriteMaterial( {
+      map: new THREE.CanvasTexture( generateSprite() ),
+      blending: THREE.AdditiveBlending
+    } );
+    for ( var i = 0; i < 1000; i++ ) {
+      particle = new THREE.Sprite( spriteMaterial );
+      initParticle( particle, i * 200 );
+      scene.add( particle );
+    }
   }
   // Cube
   var tesselation = 4;
@@ -71,13 +80,15 @@ function init() {
   // Plane
   var geometry = new THREE.PlaneBufferGeometry( 200, 200 );
   geometry.rotateX( - Math.PI / 2 );
-  var material = new THREE.MeshBasicMaterial( { color: 0x0d0e1a, overdraw: 0.5 } );
+  var material = new THREE.MeshBasicMaterial( { color: shadowColor, overdraw: 0.5 } );
   plane = new THREE.Mesh( geometry, material );
   // IF SHADOW....
-  // scene.add( plane );
-  // renderer = new THREE.CanvasRenderer();
+  if (showShadow) {
+    scene.add( plane );
+  }
+  renderer = new THREE.CanvasRenderer();
   renderer = new THREE.WebGLRenderer( { alpha: true } );
-  renderer.setClearColor( 0x27284b );
+  renderer.setClearColor( bgColor );
   renderer.setPixelRatio( window.devicePixelRatio );
   renderer.setSize( window.innerWidth, window.innerHeight );
   container.appendChild( renderer.domElement );
@@ -104,7 +115,9 @@ function generateSprite() {
   var gradient = context.createRadialGradient( canvas.width / 2, canvas.height / 2, 0, canvas.width / 2, canvas.height / 2, canvas.width / 2 );
   gradient.addColorStop( 0, 'rgba(255,255,255,1)' );
   gradient.addColorStop( 0.2, 'rgba(222,195,50,1)' );
+  // gradient.addColorStop( 0.2, 'rgba(255,255,255,1)' );
   gradient.addColorStop( 0, 'rgba(222,195,50,1)' );
+  // gradient.addColorStop( 0, 'rgba(255,255,255,1)' );
   gradient.addColorStop( 1, 'rgba(0,0,0,0)' );
   context.fillStyle = gradient;
   context.fillRect( 0, 0, canvas.width, canvas.height );
@@ -167,11 +180,11 @@ function setRotation(target, delaySpeed, popup){
   setAngle = nearestAngle(target, actual)
   Tween(setAngle, delaySpeed);
   angleSet = true;
-  if (popup != 'con') {
+  if (popup == 'abt' || popup == 'proj') {
     $('#' + popup).delay(delaySpeed).fadeIn();
     $('.' + popup).delay(2*delaySpeed).animate({
-      width: '52vh',
-      height: '52vh',
+      width: '53vh',
+      height: '53vh',
       top: '24%'
     });
     $('.pContent').delay(4*delaySpeed).fadeIn();
@@ -189,6 +202,7 @@ function onDocumentMouseUp( event ) {
     var raycaster = new THREE.Raycaster();
     var mouse = new THREE.Vector2();
     raycaster.setFromCamera( mouse, camera );
+    
     var delaySpeed = 200;
     var intersects = raycaster.intersectObjects( [cube] );
 
