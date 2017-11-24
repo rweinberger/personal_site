@@ -71,7 +71,7 @@ function init() {
     new THREE.MeshBasicMaterial({map: blank, overdraw: 0.5}),
     new THREE.MeshBasicMaterial({map: blank, overdraw: 0.5}),
     new THREE.MeshBasicMaterial({map: texture1, overdraw: 0.5}), //first = about, i=68-71
-    new THREE.MeshBasicMaterial({map: texture3, overdraw: 0.5})  //third = education, i=84-87
+    new THREE.MeshBasicMaterial({map: texture3, overdraw: 0.5})  //third = experience, i=84-87
   ]
   var cubeFaces = new THREE.MultiMaterial(materials);
   cube = new THREE.Mesh( geometry, cubeFaces );
@@ -196,6 +196,13 @@ function setRotation(target, delaySpeed, popup){
   }
 }
 
+$('#open-resume').click(function() {
+  $("#resume").delay(200).fadeIn();
+  $("#closeresume").delay(200).fadeIn();
+  //$('.pContent').delay(200).fadeIn();
+  //$('.close').delay(delaySpeed).fadeIn();
+});
+
 function onDocumentMouseUp( event ) {
   if(flag === 0){
     //CLICK
@@ -223,10 +230,10 @@ function onDocumentMouseUp( event ) {
         };    
       }
       else if (index>=84 && index <= 87) {
-        //education
+        //experience
         popup = true;
         if (angleSet == false) {
-          setRotation(3.14, delaySpeed, 'edu');
+          setRotation(3.14, delaySpeed, 'exp');
         };
       }
       else if (index>=20 && index <= 23) {
@@ -263,6 +270,11 @@ $(".close").click(function() {
     popup = false; 
   }, 800);
   angleSet = false
+});
+
+$("#closeresume").click(function() {
+  $('#resume').fadeOut(200);
+  $("#closeresume").fadeOut(200);
 });
 
 function onDocumentMouseOut( event ) {

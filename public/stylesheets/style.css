@@ -40,6 +40,7 @@ hr {
 }
 
 a {
+  cursor: pointer;
   text-decoration: none;
   font-weight: bold;
   color: #000;
@@ -121,11 +122,11 @@ a:hover {
   z-index: 1;
 }
 
-.popup {
+.popup, .popup2 {
   position: relative;
   margin: auto;
-  height: 36%;
-  top: 32%;
+  height: 34%;
+  top: 33%;
   z-index: 2;
   overflow-y: scroll;
   overflow-wrap: break-word;
@@ -133,7 +134,7 @@ a:hover {
   color: #515151;
 }
 
-.close {
+.close, #closeresume {
   position: absolute;
   top: 15px;
   right: 17px;
@@ -141,7 +142,7 @@ a:hover {
   display: none;
 }
 
-.close:hover {
+.close:hover, #closeresume:hover {
   opacity: 0.2;
   cursor: pointer;
 /*  -ms-transform: rotate(45deg); /* IE 9 */
