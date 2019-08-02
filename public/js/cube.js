@@ -7,6 +7,7 @@ class Cube {
         })
         const faces = new THREE.MultiMaterial(materials);
 
+        this.textureNames = textureNames;
         this._cube = new THREE.Mesh( geometry, faces );
         this._cube.position.y = 150;
     }
@@ -28,36 +29,18 @@ class Cube {
             .start();
     }
 
+    getClickedFace(mouse, camera) {
+        const raycaster = new THREE.Raycaster();
+        raycaster.setFromCamera(mouse, camera);
+
+        const intersects = raycaster.intersectObjects([this.obj]);
+        if (intersects[0]) {
+            const faceIndex = intersects[0].face.materialIndex;
+            console.log(this.textureNames[faceIndex]);
+        }
+    }
+
     getNearestFace(camera) {
-        let material = new THREE.LineBasicMaterial({ color: 0xAAFFAA });
-
-        // crosshair size
-        let x = 0.01, y = 0.01;
-
-        let geometry = new THREE.Geometry();
-
-        // crosshair
-        geometry.vertices.push(new THREE.Vector3(0, y, 0));
-        geometry.vertices.push(new THREE.Vector3(0, -y, 0));
-        geometry.vertices.push(new THREE.Vector3(0, 0, 0));
-        geometry.vertices.push(new THREE.Vector3(x, 0, 0));    
-        geometry.vertices.push(new THREE.Vector3(-x, 0, 0));
-
-        let crosshair = new THREE.Line( geometry, material );
-
-        // place it in the center
-        let crosshairPercentX = 50;
-        let crosshairPercentY = 50;
-        let crosshairPositionX = (crosshairPercentX / 100) * 2 - 1;
-        let crosshairPositionY = (crosshairPercentY / 100) * 2 - 1;
-
-        crosshair.position.x = crosshairPositionX * camera.aspect;
-        crosshair.position.y = crosshairPositionY;
-
-        crosshair.position.z = -0.3;
-
-        camera.add( crosshair );
-
         const raycaster = new THREE.Raycaster();
         const mouse = new THREE.Vector2();
         raycaster.setFromCamera(mouse, camera);

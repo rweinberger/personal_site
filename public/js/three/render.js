@@ -76,7 +76,7 @@ function init() {
     first = about, i=68-71
     third = experience, i=84-87
   */
-  const textureNames = ["2", "4", "blank", "blank", "1", "3"]
+  const textureNames = ["projects", "contact", "blank", "blank", "about", "experience"]
   cube = new Cube(textureNames, tesselation);
   cube_obj = cube.obj;
   scene.add( cube_obj );
@@ -92,6 +92,15 @@ function init() {
   document.addEventListener( 'mouseup', onDocumentMouseUp, false );
 
   window.addEventListener( 'resize', onWindowResize, false );
+
+  $(document).on("click", clickHandler);
+}
+
+function clickHandler(event) {
+  const mouse2 = new THREE.Vector2();
+  mouse2.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+  mouse2.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+  cube.getIntersectedFace(mouse2, camera);
 }
 
 function onWindowResize() {
@@ -112,11 +121,8 @@ function onDocumentMouseDown( event ) {
 }
 
 function onDocumentMouseMove( event ) {
-  drag = true;
-
   if (mousedown) {
-    cube.getNearestFace(camera);
-
+    drag = true;
     mouseX = event.clientX - windowHalfX;
     mouseY = event.clientY - windowHalfY;
 
@@ -130,6 +136,8 @@ function onDocumentMouseMove( event ) {
 
     lastX = mouseX;
     lastY = mouseY;
+  } else {
+
   }
 }
 
@@ -173,49 +181,51 @@ $('#open-resume').click(function() {
 function onDocumentMouseUp( event ) {
   mousedown = false;
   if (!drag){
-    //CLICK
-    var raycaster = new THREE.Raycaster();
-    var mouse = new THREE.Vector2();
-    raycaster.setFromCamera( mouse, camera );
-    
-    var delaySpeed = 200;
-    var intersects = raycaster.intersectObjects( [cube_obj] );
 
-    if ( intersects.length > 0 ) {
-      // console.log(intersects[0].faceIndex);
-      var index = Math.floor( intersects[0].faceIndex / 2 );
-      if (index>=68 && index <= 71) {
-        //about
-        popup = true;
-        if (angleSet == false) {
-          setRotation(0, delaySpeed, 'abt');
-        };
-      }
-      else if (index>=4 && index <= 7) {
-        //projects
-        popup = true;
-        if (angleSet == false) {
-          setRotation(4.71, delaySpeed, 'proj');
-        };    
-      }
-      else if (index>=84 && index <= 87) {
-        //experience
-        popup = true;
-        if (angleSet == false) {
-          setRotation(3.14, delaySpeed, 'exp');
-        };
-      }
-      else if (index>=20 && index <= 23) {
-        //contact
-        popup = true;
-        if (angleSet == false) {
-          setRotation(1.57, delaySpeed, 'con');
-        };
-      }
-    };
+    // //CLICK
+    // var raycaster = new THREE.Raycaster();
+    // var mouse = new THREE.Vector2();
+    // raycaster.setFromCamera( mouse, camera );
+    
+    // var delaySpeed = 200;
+    // var intersects = raycaster.intersectObjects( [cube_obj] );
+
+    // if ( intersects.length > 0 ) {
+    //   // console.log(intersects[0].faceIndex);
+    //   var index = Math.floor( intersects[0].faceIndex / 2 );
+    //   if (index>=68 && index <= 71) {
+    //     //about
+    //     popup = true;
+    //     if (angleSet == false) {
+    //       setRotation(0, delaySpeed, 'abt');
+    //     };
+    //   }
+    //   else if (index>=4 && index <= 7) {
+    //     //projects
+    //     popup = true;
+    //     if (angleSet == false) {
+    //       setRotation(4.71, delaySpeed, 'proj');
+    //     };    
+    //   }
+    //   else if (index>=84 && index <= 87) {
+    //     //experience
+    //     popup = true;
+    //     if (angleSet == false) {
+    //       setRotation(3.14, delaySpeed, 'exp');
+    //     };
+    //   }
+    //   else if (index>=20 && index <= 23) {
+    //     //contact
+    //     popup = true;
+    //     if (angleSet == false) {
+    //       setRotation(1.57, delaySpeed, 'con');
+    //     };
+    //   }
+    // };
 
   } else {
     $('#spin').fadeOut(800);
+    drag = false;
   };
 }
 
