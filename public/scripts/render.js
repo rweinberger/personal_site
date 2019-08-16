@@ -1,3 +1,6 @@
+const CANVAS_X_RATIO = 1/2;
+const CANVAS_Y_RATIO = 1/1;
+
 var camera, scene, renderer;
 var cube, cube_obj;
 var targetRotationX = 0;
@@ -6,8 +9,8 @@ var mouseX = 0;
 var mouseY = 0;
 var lastX = 0;
 var lastY = 0;
-var windowHalfX = window.innerWidth / 4;
-var windowHalfY = window.innerHeight / 2;
+var windowHalfX = window.innerWidth / 2 * CANVAS_X_RATIO;
+var windowHalfY = window.innerHeight / 2 * CANVAS_Y_RATIO;
 var drag, popup;
 var mousedown = false;
 var bgColor = 0x9b9b9b;
@@ -55,18 +58,14 @@ function init() {
 }
 
 function clickHandler(event) {
-    const mouse2 = new THREE.Vector2();
-    mouse2.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-    mouse2.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-    // cube.getIntersectedFace(mouse2, camera);
 }
 
 function onWindowResize() {
-    windowHalfX = window.innerWidth / 4;
-    windowHalfY = window.innerHeight / 2;
+    windowHalfX = window.innerWidth / 2 * CANVAS_X_RATIO;
+    windowHalfY = window.innerHeight / 2 * CANVAS_Y_RATIO;
     camera.aspect = windowHalfX / windowHalfY;
     camera.updateProjectionMatrix();
-    renderer.setSize( window.innerWidth / 2, window.innerHeight );
+    renderer.setSize(window.innerWidth * CANVAS_X_RATIO, window.innerHeight * CANVAS_Y_RATIO);
 }
 
 function onDocumentMouseDown( event ) {
@@ -79,6 +78,17 @@ function onDocumentMouseDown( event ) {
 }
 
 function onDocumentMouseMove( event ) {
+    const mouse = new THREE.Vector2();
+    mouse.x = ( event.clientX / window.innerWidth / CANVAS_X_RATIO ) * 2 - 1;
+    mouse.y = - ( event.clientY / window.innerHeight / CANVAS_Y_RATIO ) * 2 + 1;
+
+    if (cube.isIntersected(mouse, camera)) {
+        document.body.style.cursor = 'pointer';
+    } else {
+        document.body.style.cursor = 'default';
+    }
+
+
     if (mousedown) {
         drag = true;
         mouseX = event.clientX - windowHalfX;

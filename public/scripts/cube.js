@@ -11,6 +11,7 @@ class Cube {
         this._cube = new THREE.Mesh( geometry, faces );
         this._cube.position.y = 150;
         this._nearest_face = 'about';
+        this._raycaster = new THREE.Raycaster();
     }
 
     get obj() {
@@ -30,25 +31,31 @@ class Cube {
             .start();
     }
 
-    getIntersectedFace(mouse, camera) {
-        const raycaster = new THREE.Raycaster();
-        raycaster.setFromCamera(mouse, camera);
+    // getIntersectedFace(mouse, camera) {
+    //     const raycaster = new THREE.Raycaster();
+    //     raycaster.setFromCamera(mouse, camera);
 
-        const intersects = raycaster.intersectObjects([this.obj]);
-        if (intersects[0]) {
-            const faceIndex = intersects[0].face.materialIndex;
-            console.log(this._textureNames[faceIndex]);
-        }
+    //     const intersects = raycaster.intersectObjects([this.obj]);
+    //     if (intersects[0]) {
+    //         const faceIndex = intersects[0].face.materialIndex;
+    //         console.log(this._textureNames[faceIndex]);
+    //     }
+    // }
+
+    isIntersected(mouse, camera) {
+        this._raycaster.setFromCamera(mouse, camera);
+        const intersections = this._raycaster.intersectObjects([this.obj]);
+        const intersects = intersections[0] ? true : false;
+        return intersects;
     }
 
     updateNearestFace(camera, element) {
-        const raycaster = new THREE.Raycaster();
         const mouse = new THREE.Vector2();
-        raycaster.setFromCamera(mouse, camera);
+        this._raycaster.setFromCamera(mouse, camera);
 
-        const intersects = raycaster.intersectObjects([this.obj]);
-        if (intersects[0]) {
-            const nearest = this._textureNames[intersects[0].face.materialIndex];
+        const intersections = this._raycaster.intersectObjects([this.obj]);
+        if (intersections[0]) {
+            const nearest = this._textureNames[intersections[0].face.materialIndex];
             if (nearest != this._nearest_face) {
                 element.text(nearest);
                 this._nearest_face = nearest;
