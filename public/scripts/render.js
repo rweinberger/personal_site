@@ -10,8 +10,6 @@ var windowHalfX = window.innerWidth / 4;
 var windowHalfY = window.innerHeight / 2;
 var drag, popup;
 var mousedown = false;
-var useParticles = false;
-var showTimeZone = false;
 var bgColor = 0x9b9b9b;
 
 const text = $('#section-title');

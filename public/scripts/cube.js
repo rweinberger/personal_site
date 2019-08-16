@@ -3,14 +3,14 @@ class Cube {
         const geometry = new THREE.BoxGeometry( 200, 200, 200, tesselation, tesselation, tesselation );
         const materials = textureNames.map(name => {
             const texture = new THREE.TextureLoader().load( `../../images/${name}.png` );
-            return new THREE.MeshBasicMaterial({map: texture, overdraw: 0.5})
-        })
+            return new THREE.MeshBasicMaterial({map: texture, overdraw: 0.5});
+        });
         const faces = new THREE.MultiMaterial(materials);
 
         this._textureNames = textureNames;
         this._cube = new THREE.Mesh( geometry, faces );
         this._cube.position.y = 150;
-        this._nearest_face = "about";
+        this._nearest_face = 'about';
     }
 
     get obj() {
@@ -26,7 +26,7 @@ class Cube {
         new TWEEN
             .Tween(this.obj.rotation)
             .to(to, delay)
-            .easing( TWEEN.Easing.Quadratic.Out)
+            .easing(TWEEN.Easing.Quadratic.Out)
             .start();
     }
 
