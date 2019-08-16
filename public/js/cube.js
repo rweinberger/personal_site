@@ -7,9 +7,10 @@ class Cube {
         })
         const faces = new THREE.MultiMaterial(materials);
 
-        this.textureNames = textureNames;
+        this._textureNames = textureNames;
         this._cube = new THREE.Mesh( geometry, faces );
         this._cube.position.y = 150;
+        this._nearest_face = "about";
     }
 
     get obj() {
@@ -29,23 +30,29 @@ class Cube {
             .start();
     }
 
-    getClickedFace(mouse, camera) {
+    getIntersectedFace(mouse, camera) {
         const raycaster = new THREE.Raycaster();
         raycaster.setFromCamera(mouse, camera);
 
         const intersects = raycaster.intersectObjects([this.obj]);
         if (intersects[0]) {
             const faceIndex = intersects[0].face.materialIndex;
-            console.log(this.textureNames[faceIndex]);
+            console.log(this._textureNames[faceIndex]);
         }
     }
 
-    getNearestFace(camera) {
+    updateNearestFace(camera, element) {
         const raycaster = new THREE.Raycaster();
         const mouse = new THREE.Vector2();
         raycaster.setFromCamera(mouse, camera);
 
         const intersects = raycaster.intersectObjects([this.obj]);
-        console.log(intersects[0].faceIndex);
+        if (intersects[0]) {
+            const nearest = this._textureNames[intersects[0].face.materialIndex];
+            if (nearest != this._nearest_face) {
+                element.text(nearest);
+                this._nearest_face = nearest;
+            }
+        }
     }
 }

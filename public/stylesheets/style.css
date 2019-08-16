@@ -22,6 +22,19 @@ body {
   color: #fff;
 }
 
+#left {
+  width: 50vw;
+  margin-left: 0px;
+  position: fixed;
+}
+
+#right {
+  width: 50vw;
+  right: 0;
+  position: fixed;
+  color:black;
+}
+
 hr {
   border:none;
   height: 1px;
@@ -59,9 +72,16 @@ a:hover {
   color: #7a7a7a;
 }
 
-#title {
+#section-title {
+  color: #7a7a7a;
+}
+
+#name-title {
+  color: #fff;
+}
+
+.column-title {
   font-family: "title";
-  padding-left: 4px;
   position: absolute;
   font-size: 42px;
   letter-spacing: 6px;
@@ -69,8 +89,7 @@ a:hover {
   line-height: 50pt;
   margin: auto;
   text-align: center;
-  top: 12%;
-  color: #fff;
+  top: 12vh;
 }
 
 #spin {
