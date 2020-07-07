@@ -1,5 +1,6 @@
 const CANVAS_X_RATIO = 1/2;
 const CANVAS_Y_RATIO = 1/1;
+const CUBE_SIZE = 150;
 
 var camera, scene, renderer;
 var cube, cube_obj;
@@ -11,11 +12,12 @@ var lastX = 0;
 var lastY = 0;
 var windowHalfX = window.innerWidth / 2 * CANVAS_X_RATIO;
 var windowHalfY = window.innerHeight / 2 * CANVAS_Y_RATIO;
-var drag, popup;
+var drag, tweening;
 var mousedown = false;
-var bgColor = 0x9b9b9b;
+// var bgColor = 0x9b9b9b;
+var bgColor = 0x000;
 
-const text = $('#section-title');
+// const text = $('#section-title');
 
 init();
 animate();
@@ -38,8 +40,8 @@ function init() {
     first = about, i=68-71
     third = experience, i=84-87
   */
-    const textureNames = ['projects', 'contact', 'blank', 'blank', 'about', 'experience'];
-    cube = new Cube(textureNames, tesselation);
+    const textureNames = ['about', 'projects', 'contact', 'blank', 'hello', 'experience'];
+    cube = new Cube(textureNames, tesselation, CUBE_SIZE);
     cube_obj = cube.obj;
     scene.add( cube_obj );
 
@@ -104,6 +106,7 @@ function onDocumentMouseMove( event ) {
 
         lastX = mouseX;
         lastY = mouseY;
+        // console.log(cube.obj.rotation)
     } else {
 
     }
@@ -126,9 +129,9 @@ function animate() {
 
 function render() {
     TWEEN.update();
-    if (popup != true) {
+    if (tweening != true) {
         cube.tween(targetRotationY, targetRotationX, 200);
     }
-    cube.updateNearestFace(camera, text);
+    cube.updateNearestFace(camera);
     renderer.render( scene, camera );
 }

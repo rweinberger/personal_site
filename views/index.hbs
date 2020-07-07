@@ -9,22 +9,36 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   </head>
   <body>
+    <div id='name-title' class="column-title">rebecca weinberger</div>
+
     <div id='left'>
       <div id='timezone'></div>
-      <div id='name-title' class="column-title">rebecca weinberger</div>
-      {{> modals }}
-      <div id='spin'>drag to spin the cube!</div>
+      {{!-- {{> modals }} --}}
+      {{!-- <div id='spin'>drag to spin the cube!</div> --}}
       <a id='copyright' href='https://github.com/rweinberger/personal_site' target="_blank">&#169; 2017 rew</a>
     </div>
 
     <div id='right'>
-      <div id='section-title' class='column-title'>about</div>
-      <div id='section-content'>blah blah</div>
+      {{!-- <div id='section-title' class='column-title'>about</div> --}}
+      <div id='sections'>
+        <div id='content'>
+          {{> sections}}
+        </div>
+        <div id='section-sidebar'>
+            <a href="#" id="hello-link" class='nav-link'>hello</a>
+            <a href="#" id="about-link" class='nav-link'>about</a>
+            <a href="#" id="experience-link" class='nav-link'>experience</a>
+            <a href="#" id="projects-link" class='nav-link'>projects</a>
+            <a href="#" id="blank-link" class='nav-link'>blank</a>
+            <a href="#" id="contact-link" class='nav-link'>contact</a>
+        </div>
+      </div>
     </div>
 
     <script src="/scripts/libs/three.min.js"></script>
     <script src="/scripts/libs/Tween.js"></script>
     <script src="/scripts/cube.js"></script>
     <script src="/scripts/render.js"></script>
+    <script src="/scripts/sidebar.js"></script>
   </body>
 </html>

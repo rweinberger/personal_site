@@ -15,7 +15,8 @@ html, body {
 }
 
 body {
-  font-family: 'body';
+  /* font-family: 'body'; */
+  font-family: "Andale Mono", monospace;
   margin: 0px;
   overflow: hidden;
   /**CHANGE THIS FOR SMALL FONT COLOR**/
@@ -30,9 +31,14 @@ body {
 
 #right {
   width: 50vw;
+  height: 100vh;
   right: 0;
   position: fixed;
-  color:black;
+  background-color: #000;
+  color:white;
+  display: grid;
+  grid-template-rows: 1fr 300px 1fr;
+  grid-template-areas: 'title' 'content' 'blank';
 }
 
 hr {
@@ -52,21 +58,22 @@ hr {
   -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
 }
 
-a {
+/* a {
   cursor: pointer;
   text-decoration: none;
   font-weight: bold;
   color: #000;
-}
+} */
 
-a:hover {
+/* a:hover {
   opacity: 0.5;
-}
+} */
 /****************************************************************/
 /***********************---GENERAL---****************************/
 /****************************************************************/
 .title {
-  font-family: "title";
+  /* font-family: "title"; */
+  font-family: monospace;
   font-size: 30px;
   letter-spacing: 3px;
   color: #7a7a7a;
@@ -74,17 +81,57 @@ a:hover {
 
 #section-title {
   color: #7a7a7a;
+  /* grid-area: title; */
+}
+
+#sections {
+  display: flex;
+  margin: auto;
+  width: 100%;
+  height: 200px;
+  /* background-color: #9b9b9b; */
+  /* border-left: solid 1px #fff; */
+  grid-area: content;
+}
+
+.section-content {
+  color: white;
+}
+
+#content {
+  flex: 1;
+  display: inline-block;
+}
+
+#section-sidebar {
+  border-left: solid 2px #fff;
+  padding-left: 25px;
+  width: 250px;
+  height: 150px;
+  display: inline-block;
+}
+
+.nav-link {
+  color:#9c9c9c;
+  display: block;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  color: white !important ;
 }
 
 #name-title {
   color: #fff;
+  z-index: 1;
 }
 
 .column-title {
-  font-family: "title";
+  /* font-family: "title"; */
+  font-family: "Andale Mono", monospace;
   position: absolute;
-  font-size: 42px;
-  letter-spacing: 6px;
+  font-size: 24pt;
+  /* letter-spacing: 6px; */
   width: 100%;
   line-height: 50pt;
   margin: auto;
@@ -102,6 +149,7 @@ a:hover {
 }
 
 #copyright {
+  display: none;
   position: absolute;
   font-size: 10px;
   width: 100%;
